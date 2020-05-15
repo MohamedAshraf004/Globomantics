@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Blazor.Extensions;
+using Shared.Models;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Globomantics.Extensions;
-using Shared.Models;
 
-namespace Globomantics.Services
+namespace Blazor.Services
 {
     public class ConferenceApiService : IConferenceService
     {
