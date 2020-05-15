@@ -28,7 +28,7 @@ namespace Globomantics
 
             services.AddSingleton<IConferenceService, ConferenceMemoryService>();
             services.AddSingleton<IProposalService, ProposalMemoryService>();
-
+            services.Configure<GlobomanticsOptions>(configuration.GetSection("Globomantics"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,7 +48,7 @@ namespace Globomantics
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Conference}/{action=Index}/{id?}");
                 
             });
         }
