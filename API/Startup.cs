@@ -31,7 +31,7 @@ namespace API
             services.AddSingleton<IConferenceRepo,ConferenceMemoryRepo>();
             services.AddSingleton<IProposalRepo, ProposalMemoryRepo>();
             services.AddSingleton<IStatisticsRepo, StatisticsMemoryRepo>();
-
+            //services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,11 +42,15 @@ namespace API
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
+            //app.UseCors(cf =>
+            //{
+            //    cf.AllowAnyOrigin();
+            //    cf.AllowAnyMethod();
+            //    cf.AllowAnyHeader();
+            //});
             app.UseRouting();
-
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

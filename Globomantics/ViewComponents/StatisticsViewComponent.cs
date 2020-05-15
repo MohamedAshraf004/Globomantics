@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Globomantics.Services;
 
-namespace WebApp.ViewComponents
+namespace Globomantics.ViewComponents
 {
     public class StatisticsViewComponent : ViewComponent
     {

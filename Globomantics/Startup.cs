@@ -25,9 +25,12 @@ namespace Globomantics
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-
-            services.AddSingleton<IConferenceService, ConferenceMemoryService>();
-            services.AddSingleton<IProposalService, ProposalMemoryService>();
+            services.AddHttpClient("GlobomanticsApi", cnf =>
+            {
+                cnf.BaseAddress = new Uri("https://localhost:44393/");
+            });
+            services.AddSingleton<IConferenceService, ConferenceApiService>();
+            services.AddSingleton<IProposalService, ProposalApiService>();
             services.Configure<GlobomanticsOptions>(configuration.GetSection("Globomantics"));
         }
 
