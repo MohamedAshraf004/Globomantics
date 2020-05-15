@@ -1,0 +1,67 @@
+﻿@page "/"
+@using Blazor.Services
+@using Models
+@using Components
+@inject IConferenceService conferenceService
+
+@if (conferences == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-10 col-md-offset-2">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>Start of event</th>
+                        <th>Attendees</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var conference in conferences)
+                    {
+
+                        <tr>
+                            <td>@conference.Name</td>
+                            <td>@conference.Location</td>
+                            <td>@conference.StartDate.ToString("ddd d MMM")</td>
+                            @if (conference.AttendeeTotal > 5)
+                            {
+
+                                <td><strong>@conference.AttendeeTotal</strong></td>
+                            }
+                            else
+                            {
+                                <td>@conference.AttendeeTotal</td>
+                            }
+                            <td>
+                                <a href="/proposals/@conference.Id">Proposals</a>
+                            </td>
+                        </tr>
+
+                        @*<ConferenceListItem conference="@conference"></ConferenceListItem>*@
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-2">
+            <a href="/addconference">Add</a>
+        </div>
+    </div>
+}
+
+@code {
+    IEnumerable<Conference> conferences;
+
+    protected override async Task OnInitializedAsync()
+    {
+        conferences = await conferenceService.GetAll();
+    }
+}

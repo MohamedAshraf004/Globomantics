@@ -1,5 +1,5 @@
 ﻿using Blazor.Extensions;
-using Shared.Models;
+using Blazor.Models;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -16,39 +16,39 @@ namespace Blazor.Services
             //httpClient.BaseAddress = new Uri("http://localhost:5000");
             client = httpClientFactory.CreateClient("GlobomanticsApi");
         }
-        public async Task<IEnumerable<ConferenceModel>> GetAll()
+        public async Task<IEnumerable<Conference>> GetAll()
         {
-            List<ConferenceModel> result;
+            List<Conference> result;
             var response = await client.GetAsync("/v1/Conference");
             if (response.IsSuccessStatusCode)
-                result = await response.Content.ReadAsAsync<List<ConferenceModel>>();
+                result = await response.Content.ReadAsAsync<List<Conference>>();
             else
                 throw new HttpRequestException(response.ReasonPhrase);
 
             return result;
         }
 
-        public async Task<ConferenceModel> GetById(int id)
+        public async Task<Conference> GetById(int id)
         {
-            var result = new ConferenceModel();
+            var result = new Conference();
             var response = await client.GetAsync($"/v1/Conference/{id}");
             if (response.IsSuccessStatusCode)
-                result = await response.Content.ReadAsAsync<ConferenceModel>();
+                result = await response.Content.ReadAsAsync<Conference>();
 
             return result;
         }
 
-        public async Task<StatisticsModel> GetStatistics()
+        public async Task<Statistics> GetStatistics()
         {
-            var result = new StatisticsModel();
+            var result = new Statistics();
             var response = await client.GetAsync($"/v1/Statistics");
             if (response.IsSuccessStatusCode)
-                result = await response.Content.ReadAsAsync<StatisticsModel>();
+                result = await response.Content.ReadAsAsync<Statistics>();
 
             return result;
         }
 
-        public async Task Add(ConferenceModel model)
+        public async Task Add(Conference model)
         {
             await client.PostAsJsonAsync("/v1/Conference", model);
         }

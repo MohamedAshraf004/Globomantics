@@ -1,0 +1,32 @@
+@using Blazor.Services
+@using Models
+@inject IProposalService proposalService
+
+<tr>
+    <td>@Proposal.Title</td>
+    <td>@Proposal.Speaker</td>
+    <td>
+        @if (Proposal.Approved)
+        {
+            <div>Yes</div>
+        }
+    </td>
+    <td>
+        @if (!Proposal.Approved)
+        {
+            <a class="btn btn-primary"  @onclick="@HandleApprove">Approve</a>
+        }
+    </td>
+</tr>
+
+
+@code {
+    [Parameter]
+    public Proposal Proposal { get; set; }
+
+    private void HandleApprove()
+    {
+        Proposal.Approved = true;
+        proposalService.Approve(Proposal.Id);
+    }
+}
